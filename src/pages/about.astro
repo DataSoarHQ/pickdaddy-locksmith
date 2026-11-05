@@ -1,0 +1,69 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Stats from '../components/Stats.astro';
+import Reviews from '../components/Reviews.astro';
+import Cta from '../components/Cta.astro';
+import ContactSection from '../components/ContactSection.astro';
+import elite from '../assets/brand/homeadvisor-elite.png';
+import screened from '../assets/brand/homeadvisor-screened.png';
+import { photo } from '../lib/img';
+import { business as b, reasons, quickServices } from '../data/site';
+---
+<Base
+  title="About Us"
+  description="Why North Alabama chooses Pick Daddy’s Mobile Locksmith: fast and courteous service every day, fair pricing, and a 60-day service warranty. That’s the Pick Daddy Promise."
+  crumbs={[{ name: 'About', href: '/about/' }]}
+>
+  <PageHead
+    eyebrow="Why Choose Pick Daddy’s"
+    title="We Are The Perfect Fit For Your Lock-Out Problem"
+    sub="Mobile locksmith service for homes, businesses and vehicles across North Alabama."
+    banner="keys-padlock"
+    crumbs={[{ name: 'About', href: '/about/' }]}
+  />
+
+  <section class="section">
+    <div class="wrap split">
+      <div data-reveal>
+        <p class="eyebrow">Our Goal</p>
+        <h2>The Pick Daddy Promise</h2>
+        <p class="lede">To provide each and every customer fast and courteous locksmith services each and every day! That’s the Pick Daddy Promise!</p>
+        <ul class="checks checks--2" style="margin-block:1.5rem">{quickServices.map((s) => <li>{s}</li>)}</ul>
+        <div class="actions">
+          <a class="btn btn--navy" href="/locksmith-services/">Our Services</a>
+          <a class="btn btn--ghost" href="/locksmith-services/#pricing">Pricing</a>
+        </div>
+      </div>
+      <div class="stack" data-reveal>
+        <Image src={photo('rekey-door')} alt="Locksmith rekeying a front door lock" widths={[500, 900]} sizes="(max-width: 900px) 90vw, 45vw" />
+        <Image src={photo('car-door')} alt="Locksmith unlocking a car door" widths={[300, 600]} sizes="(max-width: 900px) 45vw, 22vw" />
+      </div>
+    </div>
+  </section>
+
+  <Stats />
+
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Why Choose Us</p>
+        <h2>Full Service Locksmith with Fair &amp; Competitive Pricing</h2>
+        <p class="lede">Pick Daddy’s is ready to help when you need it most. From The Shoals to Huntsville, we’re just a call away!</p>
+      </div>
+      <ul class="tiles">
+        {reasons.map((r) => <li class="tile" data-reveal><h3>{r.title}</h3><p>{r.text}</p></li>)}
+      </ul>
+      <div class="trust">
+        <Image src={elite} alt="HomeAdvisor Elite Service" height={176} />
+        <Image src={screened} alt="HomeAdvisor Screened & Approved" height={176} />
+        <p>HomeAdvisor Elite Service and Screened &amp; Approved.</p>
+      </div>
+    </div>
+  </section>
+
+  <Reviews />
+  <Cta title="If You Need Immediate Assistance, Please Call Now" text={`We’re available when you need us! Give us a call now and we’ll be on our way. ${b.phoneDisplay}.`} />
+  <ContactSection />
+</Base>

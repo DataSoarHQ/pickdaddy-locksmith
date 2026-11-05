@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Areas from '../components/Areas.astro';
+import Cta from '../components/Cta.astro';
+import ContactSection from '../components/ContactSection.astro';
+---
+<Base
+  title="Service Areas"
+  description="Pick Daddy’s Mobile Locksmith comes to you across North Alabama: Huntsville, Madison, Decatur, Tanner, Mount Hope, Florence, Muscle Shoals, Sheffield and Tuscumbia."
+  crumbs={[{ name: 'Service Areas', href: '/service-areas/' }]}
+>
+  <PageHead
+    eyebrow="Service Areas"
+    title="Serving North Alabama and Surrounding Areas"
+    sub="From The Shoals to Huntsville, we’re just a call away. We bring the shop to you."
+    banner="keys-circle"
+    crumbs={[{ name: 'Service Areas', href: '/service-areas/' }]}
+  />
+  <section class="section">
+    <div class="wrap">
+      <Areas />
+      <p class="muted" style="margin-top:1.5rem">Don’t see your town? We cover surrounding areas too. Call or text and ask.</p>
+    </div>
+  </section>
+  <Cta />
+  <ContactSection />
+</Base>

@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets';
+import { photo } from '../lib/img';
+import { business as b, services } from '../data/site';
+// On the services page the cards link to the price lists further down the same page.
+const { base = '/locksmith-services/' } = Astro.props;
+---
+<ul class="cards">
+  {services.map((s) => (
+    <li class:list={['card', { 'card--feature': !s.img }]} data-reveal>
+      {s.img
+        ? <Image src={photo(s.img)} alt={s.alt} widths={[420, 720]} sizes="(max-width: 600px) 100vw, (max-width: 1080px) 50vw, 33vw" />
+        : <div class="card__icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M14 56V12a4 4 0 0 1 4-4h18a4 4 0 0 1 4 4v44M10 56h34M20 18h14v12H20zM40 24h6a4 4 0 0 1 4 4v16a3 3 0 0 0 6 0V22l-7-7"/></svg></div>}
+      <div class="card__body">
+        <h3>{s.name}</h3>
+        <p>{s.text}</p>
+        {s.anchor
+          ? <a class="card__more" href={`${base}${s.anchor}`}>{s.anchor === '#auto' ? 'See automotive pricing' : s.anchor === '#commercial' ? 'See commercial pricing' : 'See residential pricing'}</a>
+          : <a class="card__more" href={b.phoneHref}>Call {b.phoneDisplay}</a>}
+      </div>
+    </li>
+  ))}
+</ul>

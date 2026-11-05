@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { business as b } from '../data/site';
+---
+<Base title="Page not found" description="That page doesn’t exist." noindex>
+  <PageHead title="Looks like this page is locked out" sub="It may have moved. Try the home page, or call or text if you need help now.">
+    <div class="actions">
+      <a class="btn btn--yellow" href={b.phoneHref}>Call {b.phoneDisplay}</a>
+      <a class="btn btn--ghost" href="/">Home page</a>
+    </div>
+  </PageHead>
+</Base>

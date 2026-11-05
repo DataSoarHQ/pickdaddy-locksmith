@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { business as b } from '../data/site';
+---
+<Base title="Privacy Policy" description="How Pick Daddy’s Mobile Locksmith handles information you send through pickdaddyslocksmith.com." crumbs={[{ name: 'Privacy Policy', href: '/privacy-policy/' }]}>
+  <PageHead title="Privacy Policy" crumbs={[{ name: 'Privacy Policy', href: '/privacy-policy/' }]} />
+  <section class="section">
+    <div class="wrap wrap--narrow prose">
+      <p>This page explains what happens to information you give us through pickdaddyslocksmith.com.</p>
+      <h2>What we collect</h2>
+      <p>When you send the service request form, we receive the service you selected, your name, phone number, email address, the address where you need us, and anything you add in the message box. We use it only to reply to you and provide the service you asked about.</p>
+      <h2>How it’s delivered</h2>
+      <p>Form submissions are sent to us by email through an email delivery provider. The site is hosted by Vercel. These providers process the data only to deliver it to us.</p>
+      <h2>Analytics</h2>
+      <p>We use Google Analytics to see how many people visit the site and which pages they view. It uses cookies and collects information such as your browser type and approximate location. It does not receive what you type into the form.</p>
+      <h2>What we don’t do</h2>
+      <p>We don’t sell your information or share it for advertising.</p>
+      <h2>Your choices</h2>
+      <p>To ask what we hold about you or to have it deleted, call or text <a href={b.phoneHref}>{b.phoneDisplay}</a> or email <a href={`mailto:${b.email}`}>{b.email}</a>.</p>
+    </div>
+  </section>
+</Base>

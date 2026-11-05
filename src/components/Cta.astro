@@ -1,0 +1,19 @@
+---
+import { business as b } from '../data/site';
+const {
+  title = 'Need Emergency Locksmith Services Now?',
+  text = 'Locked out of your home or car in the middle of the night? No worries, Pick Daddy’s Mobile Locksmith has got your back. Call us now!',
+} = Astro.props;
+---
+<section class="cta">
+  <div class="wrap cta__in">
+    <div>
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="actions">
+      <a class="btn btn--navy" href={b.phoneHref}>Call {b.phoneDisplay}</a>
+      <a class="btn btn--ghost" href={b.smsHref}>Text us</a>
+    </div>
+  </div>
+</section>

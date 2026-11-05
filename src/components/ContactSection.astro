@@ -1,0 +1,33 @@
+---
+// "We Are The Loc Doc" contact block from the original site: phone, text, email, hours and the form.
+import ContactForm from './ContactForm.astro';
+import { business as b, hours } from '../data/site';
+const {
+  title = 'We Are “The Loc Doc”',
+  text = 'Locked out of your car? Can’t get in your house? Locked your keys in your car? We’re here to help! Give us a call today and we’ll be on our way!',
+  city = '',
+} = Astro.props;
+---
+<section class="section section--dark" id="contact">
+  <div class="wrap contact">
+    <div>
+      <p class="eyebrow">Contact Us Today</p>
+      <h2>{title}</h2>
+      <p class="lede">{text}</p>
+      <div class="contact__lines">
+        <div class="line"><div><p class="line__label">Call or text</p><a href={b.phoneHref}>{b.phoneDisplay}</a></div></div>
+        <div class="line"><div><p class="line__label">Email</p><a href={`mailto:${b.email}`}>{b.email}</a></div></div>
+        <div class="line">
+          <div>
+            <p class="line__label">Home, business, or auto locksmithing</p>
+            <dl class="hours">
+              {hours.map((h) => <><dt>{h.days}</dt><dd>{h.time}</dd></>)}
+              <dt>Emergencies</dt><dd>Available 24 hours, 7 days a week</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ContactForm city={city} />
+  </div>
+</section>

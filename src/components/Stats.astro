@@ -1,0 +1,9 @@
+---
+import Slots from './Slots.astro';
+import { stats } from '../data/site';
+---
+<section class="stats" aria-label="At a glance" data-slots>
+  <ul class="wrap">
+    {stats.map((s) => <li><strong><Slots text={s.value} /></strong><span class="label">{s.label}</span></li>)}
+  </ul>
+</section>

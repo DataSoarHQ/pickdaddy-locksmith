@@ -1,0 +1,68 @@
+---
+// Service request form. Posts to /api/contact, which emails the owner's inbox only.
+import { business as b, formServices } from '../data/site';
+const { city = '' } = Astro.props;
+const id = (n: string) => `f-${n}`;
+---
+<div class="formcard">
+  <h3 class="formcard__title">Request Service</h3>
+  <p class="formcard__sub">Select the service you need, fill out your contact information, and we’ll be in touch very soon.</p>
+  <form class="form" data-contact-form novalidate>
+    <div class="field field--full">
+      <label for={id('service')}>Service Needed</label>
+      <select id={id('service')} name="service">
+        <option value="">Please select a service</option>
+        {formServices.map((s) => <option>{s}</option>)}
+      </select>
+    </div>
+    <div class="field"><label for={id('name')}>Name <span class="req">*</span></label><input id={id('name')} name="name" type="text" autocomplete="name" required /></div>
+    <div class="field"><label for={id('phone')}>Phone <span class="req">*</span></label><input id={id('phone')} name="phone" type="tel" autocomplete="tel" required /></div>
+    <div class="field field--full"><label for={id('email')}>Email <span class="req">*</span></label><input id={id('email')} name="email" type="email" autocomplete="email" required /></div>
+    <div class="field field--full"><label for={id('street')}>Street Address <span class="req">*</span></label><input id={id('street')} name="street" type="text" autocomplete="street-address" required /></div>
+    <div class="field"><label for={id('city')}>City <span class="req">*</span></label><input id={id('city')} name="city" type="text" autocomplete="address-level2" value={city} required /></div>
+    <div class="field"><label for={id('zip')}>ZIP</label><input id={id('zip')} name="zip" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="10" /></div>
+    <div class="field field--full"><label for={id('message')}>Anything else we should know?</label><textarea id={id('message')} name="message" rows="3" placeholder="Vehicle year, make and model, number of locks, best time to reach you"></textarea></div>
+    <div class="hp" aria-hidden="true"><label>If you are human, leave this field blank. <input name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
+    <div class="field--full">
+      <button class="btn btn--yellow" type="submit">Send Request</button>
+      <p class="form__status" role="status" data-contact-status></p>
+      <p class="form__foot">Locked out right now? Call or text <a href={b.phoneHref}>{b.phoneDisplay}</a> for the fastest help.</p>
+    </div>
+  </form>
+</div>
+<script is:inline define:vars={{ phone: b.phoneDisplay }}>
+  (function () {
+    var form = document.currentScript.previousElementSibling.querySelector('[data-contact-form]');
+    var status = form.querySelector('[data-contact-status]');
+    var button = form.querySelector('button[type=submit]');
+    var fallback = 'Your request was not sent. Please call or text ' + phone + ' and we will take it from there.';
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      status.className = 'form__status';
+      var data = Object.fromEntries(new FormData(form));
+      data.page = location.pathname;
+      if (!data.name.trim() || data.phone.replace(/\D/g, '').length < 10 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim()) || !data.street.trim() || !data.city.trim()) {
+        status.textContent = 'Enter your name, a 10-digit phone number, your email, and the street address and city where you need us.';
+        status.classList.add('is-error');
+        return;
+      }
+      button.disabled = true;
+      status.textContent = 'Sending your request…';
+      fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, code: r.status, j: j }; }); })
+        .then(function (res) {
+          if (res.ok) {
+            form.reset();
+            status.textContent = 'Thanks for choosing Pick Daddy’s! Your request was sent and we’ll be in touch very soon.';
+            status.classList.add('is-ok');
+            if (window.gtag) window.gtag('event', 'generate_lead', { form: 'service_request' });
+          } else {
+            status.textContent = res.code === 400 && res.j.error ? res.j.error : fallback;
+            status.classList.add('is-error');
+          }
+        })
+        .catch(function () { status.textContent = fallback; status.classList.add('is-error'); })
+        .finally(function () { button.disabled = false; });
+    });
+  })();
+</script>

@@ -1,0 +1,10 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo.png';
+import { business as b } from '../data/site';
+const { eager = false } = Astro.props;
+---
+<a class="brand" href="/" aria-label={`${b.name} home`}>
+  <Image src={logo} alt="" width={120} height={120} loading={eager ? 'eager' : 'lazy'} />
+  <span><span class="brand__name">Pick Daddy’s</span><span class="brand__sub">Mobile Locksmith</span></span>
+</a>

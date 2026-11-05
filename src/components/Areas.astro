@@ -1,0 +1,51 @@
+---
+// Town list with a "Do we cover your town?" checker that highlights matches and links to the town page.
+import { business as b, towns, townHref } from '../data/site';
+const { checker = true, exclude = '' } = Astro.props;
+const list = towns.filter((t) => t.slug !== exclude);
+const data = towns.map((t) => ({ n: t.name, h: townHref(t.slug) }));
+---
+{checker && (
+  <div class="checker towns" data-towns>
+    <h3 class="checker__title"><label for="town-q">Do we cover your town?</label></h3>
+    <form class="towns__form" data-town-form>
+      <input id="town-q" type="text" autocomplete="address-level2" placeholder="e.g. Decatur" data-town-input />
+      <button class="btn btn--yellow" type="submit">Check</button>
+    </form>
+    <p class="towns__answer" role="status" data-town-answer></p>
+  </div>
+)}
+<ul class="area-grid">
+  {list.map((t) => <li data-town={t.name}><a href={townHref(t.slug)}><span>{t.name}, AL<small>{t.county} County</small></span></a></li>)}
+</ul>
+{checker && (
+  <script is:inline define:vars={{ list: data, phone: b.phoneDisplay, tel: b.phoneHref }}>
+    (function () {
+      var box = document.querySelector('[data-towns]');
+      var input = box.querySelector('[data-town-input]');
+      var answer = box.querySelector('[data-town-answer]');
+      var items = Array.prototype.slice.call(document.querySelectorAll('[data-town]'));
+      var norm = function (s) { return s.toLowerCase().replace(/,.*$/, '').replace(/\b(al|alabama)\b/g, '').replace(/[^a-z ]/g, '').replace(/\s+/g, ' ').trim(); };
+      function check(live) {
+        var q = norm(input.value);
+        items.forEach(function (li) { li.classList.toggle('is-hit', !!q && norm(li.dataset.town).indexOf(q) === 0); });
+        answer.textContent = '';
+        if (!q) return;
+        var hits = list.filter(function (t) { return norm(t.n).indexOf(q) === 0; });
+        var exact = list.filter(function (t) { return norm(t.n) === q; })[0];
+        if (exact || hits.length === 1) {
+          var t = exact || hits[0], a = document.createElement('a');
+          a.href = t.h; a.textContent = 'See ' + t.n + ' locksmith services';
+          answer.append('Yes, we cover ' + t.n + '. ', a);
+        } else if (hits.length) {
+          answer.textContent = 'Yes: ' + hits.map(function (t) { return t.n; }).join(', ') + '.';
+        } else if (!live) {
+          var c = document.createElement('a'); c.href = tel; c.textContent = phone;
+          answer.append('We serve North Alabama and surrounding areas. Call or text ', c, ' and we’ll tell you if we can get there.');
+        }
+      }
+      input.addEventListener('input', function () { check(true); });
+      box.querySelector('[data-town-form]').addEventListener('submit', function (e) { e.preventDefault(); check(false); });
+    })();
+  </script>
+)}

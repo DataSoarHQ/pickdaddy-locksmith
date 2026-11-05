@@ -1,0 +1,112 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
+import Pricing from '../../components/Pricing.astro';
+import Faq from '../../components/Faq.astro';
+import Areas from '../../components/Areas.astro';
+import Cta from '../../components/Cta.astro';
+import ContactSection from '../../components/ContactSection.astro';
+import { photo } from '../../lib/img';
+import { business as b, faqs, quickServices, reviews, towns, townBySlug, townHref, type Town } from '../../data/site';
+
+export function getStaticPaths() {
+  return towns.map((town) => ({ params: { slug: town.slug }, props: { town } }));
+}
+const { town } = Astro.props as { town: Town };
+const place = `${town.name}, AL`;
+const review = reviews.find((r) => r.town === town.slug);
+const near = town.near.map(townBySlug);
+const crumbs = [{ name: 'Service Areas', href: '/service-areas/' }, { name: place, href: townHref(town.slug) }];
+const townFaqs = [
+  { q: `Do you come to ${town.name}?`, a: `Yes. Pick Daddy’s is a mobile locksmith, so we drive to you anywhere in ${town.name} and the surrounding ${town.county} County area. Call or text ${b.phoneDisplay} and we’ll be on our way.` },
+  ...faqs.slice(0, 4),
+];
+---
+<Base
+  title={`Locksmith in ${place}`}
+  description={`Mobile locksmith in ${place}: car door unlocking from $65, car keys and key fobs cut and programmed, home and business rekeys, and lock installs. Call or text Pick Daddy’s at ${b.phoneDisplay}.`}
+  crumbs={crumbs}
+  faqs={townFaqs}
+  areaServed={[place]}
+>
+  <PageHead
+    eyebrow={`${town.county} County, Alabama`}
+    title={`Mobile Locksmith in ${place}`}
+    sub={`Locked out, lost your keys, or need your locks rekeyed in ${town.name}? Pick Daddy’s comes to your home, business, or vehicle with the tools to get the job done right.`}
+    banner="car-door"
+    crumbs={crumbs}
+  >
+    <div class="actions">
+      <a class="btn btn--yellow btn--stack" href={b.phoneHref}><span class="btn__small">I need help now</span>{b.phoneDisplay}</a>
+      <a class="btn btn--ghost" href="#contact">Request service</a>
+    </div>
+  </PageHead>
+
+  <section class="section">
+    <div class="wrap split">
+      <div data-reveal>
+        <p class="eyebrow">Locksmith Services in {town.name}</p>
+        <h2>Home, Business &amp; Auto Locksmithing in {town.name}</h2>
+        <p class="lede">We offer a full range of locksmith services to our customers in {town.name}, whether at home, at work, or on the road. Every job is backed by our {b.warrantyDays}-day service warranty.</p>
+        <ul class="checks checks--2" style="margin-block:1.5rem">{quickServices.map((s) => <li>{s}</li>)}</ul>
+        {review && (
+          <figure class="quote">
+            <blockquote>“{review.text}”</blockquote>
+            <p>{review.name}, {review.place}</p>
+          </figure>
+        )}
+      </div>
+      <Image class="photo" src={photo(town.county === 'Colbert' || town.county === 'Lauderdale' ? 'deadbolt-install' : 'key-cutter')} alt="Pick Daddy’s locksmith at work" widths={[500, 900]} sizes="(max-width: 900px) 100vw, 45vw" data-reveal />
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">What We Do</p>
+        <h2>Our Services in {town.name}</h2>
+      </div>
+      <ServiceCards />
+    </div>
+  </section>
+
+  <section class="section section--dark" id="pricing">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Pricing</p>
+        <h2>Upfront Automotive Pricing in {town.name}</h2>
+        <p class="lede">The same fair prices everywhere we go. <a href="/locksmith-services/#pricing" style="color:var(--yellow)">See residential and commercial pricing</a>.</p>
+      </div>
+      <Pricing only={['auto']} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head head--center">
+        <p class="eyebrow">Questions?</p>
+        <h2>{town.name} Locksmith FAQ</h2>
+      </div>
+      <Faq items={townFaqs} />
+    </div>
+  </section>
+
+  <Cta title={`Locked Out in ${town.name}?`} />
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Nearby</p>
+        <h2>We Also Serve Near {town.name}</h2>
+      </div>
+      <ul class="area-grid">
+        {near.map((t) => <li><a href={townHref(t.slug)}><span>{t.name}, AL<small>{t.county} County</small></span></a></li>)}
+      </ul>
+      <p style="margin-top:1.25rem"><a class="card__more" href="/service-areas/">All service areas</a></p>
+    </div>
+  </section>
+
+  <ContactSection city={town.name} />
+</Base>

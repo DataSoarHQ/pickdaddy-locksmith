@@ -1,0 +1,28 @@
+---
+import { reviews } from '../data/site';
+const {
+  title = 'We Are North Alabama’s Trusted Locksmith Service',
+  lede = 'We take pride in the customers we serve throughout North Alabama. Thanks to these customers and many others for their kind words!',
+  alt = false,
+} = Astro.props;
+---
+<section class:list={['section', { 'section--alt': alt }]}>
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Testimonials</p>
+      <h2>{title}</h2>
+      <p class="lede">{lede}</p>
+    </div>
+    <ul class="reviews">
+      {reviews.map((r) => (
+        <li class="review" data-reveal>
+          <div>
+            <span class="stars" aria-label="5 stars">★★★★★</span>
+            <blockquote>{r.text}</blockquote>
+          </div>
+          <p class="who"><span class="who__av" aria-hidden="true">{r.name[0]}</span><span><strong>{r.name}</strong>{r.place}</span></p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

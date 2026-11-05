@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import Pricing from '../components/Pricing.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { business as b, faqs } from '../data/site';
+---
+<Base
+  title="Locksmith Services & Pricing"
+  description="Car door unlocking from $65, car keys cut and programmed, key fobs and push to start keys, residential and commercial rekeys, and doorknob and deadbolt installs. Upfront pricing across North Alabama."
+  crumbs={[{ name: 'Services', href: '/locksmith-services/' }]}
+  faqs={faqs}
+>
+  <PageHead
+    eyebrow="Our Locksmith Services"
+    title="Need Help At Home, At Work, or In Your Car?"
+    sub="We offer a full range of locksmith services in Decatur, Florence, Madison and across North Alabama. Check out our services and pricing below!"
+    banner="key-cutter"
+    crumbs={[{ name: 'Services', href: '/locksmith-services/' }]}
+  >
+    <div class="actions">
+      <a class="btn btn--yellow" href="#pricing">See pricing</a>
+      <a class="btn btn--ghost" href={b.phoneHref}>Call {b.phoneDisplay}</a>
+    </div>
+  </PageHead>
+
+  <section class="section" id="services">
+    <div class="wrap">
+      <ServiceCards />
+    </div>
+  </section>
+
+  <section class="section section--dark" id="pricing">
+    <div class="wrap">
+      <div class="head head--center">
+        <p class="eyebrow">Pricing Plans</p>
+        <h2>Full Service Locksmith with Fair &amp; Competitive Pricing</h2>
+        <p class="lede">Pick Daddy’s is ready to help when you need it most. Give us a call today! Military and police officers get 10% off.</p>
+      </div>
+      <Pricing />
+    </div>
+  </section>
+
+  <section class="section section--alt" id="faq">
+    <div class="wrap">
+      <div class="head head--center">
+        <p class="eyebrow">Questions?</p>
+        <h2>Frequently Asked Questions</h2>
+        <p class="lede">If you have another question you don’t see here, drop us a line or give us a call anytime.</p>
+      </div>
+      <Faq />
+    </div>
+  </section>
+
+  <Cta />
+  <ContactSection text="Locked out of your car? Can’t get in your house? Need a rekey onsite? We’re here to help! Give us a call today and we’ll be on our way!" />
+</Base>

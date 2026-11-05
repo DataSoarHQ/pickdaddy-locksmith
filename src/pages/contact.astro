@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { business as b } from '../data/site';
+---
+<Base
+  title="Contact Us"
+  description="Call or text Pick Daddy’s Mobile Locksmith at (256) 905-5255, or send a service request online. Home, business and auto locksmithing across North Alabama."
+  crumbs={[{ name: 'Contact', href: '/contact/' }]}
+>
+  <PageHead
+    eyebrow="Contact Us Today"
+    title="The One Call Solution For All Your Locksmith Service Needs"
+    sub="Please fill out the form by first selecting the service you need, fill out your contact information, and we will be in touch with you very soon. Thanks for choosing Pick Daddy’s Mobile Locksmith!"
+    banner="business-door"
+    crumbs={[{ name: 'Contact', href: '/contact/' }]}
+  >
+    <div class="actions">
+      <a class="btn btn--yellow" href={b.phoneHref}>Call {b.phoneDisplay}</a>
+      <a class="btn btn--ghost" href={b.smsHref}>Text us</a>
+    </div>
+  </PageHead>
+  <ContactSection />
+</Base>

@@ -1,0 +1,26 @@
+---
+// Price lists from the original site, shown as key tags.
+import { business as b, pricing } from '../data/site';
+const { only } = Astro.props;
+const groups = only ? pricing.filter((g) => only.includes(g.id)) : pricing;
+---
+{!only && (
+  <nav class="price-tabs" aria-label="Price lists">
+    {pricing.map((g) => <a href={`#${g.id}`}>{g.title}</a>)}
+  </nav>
+)}
+{groups.map((g) => (
+  <div class="pricegroup" id={g.id}>
+    <h3 class="pricegroup__title">Service Pricing: {g.title}</h3>
+    <ul class="tags">
+      {g.items.map((p, i) => (
+        <li class:list={['tag', { 'tag--yellow': i === 0 }]} data-reveal>
+          <h4 class="tag__name">{p.name}</h4>
+          <p class="tag__price">{p.from && <span class="tag__from">Service call</span>}{p.price}</p>
+          {p.lines && <ul>{p.lines.filter((l) => l !== 'Service call').map((l) => <li>{l}</li>)}</ul>}
+          <a class="btn btn--navy" href={b.phoneHref}>Contact Us Now</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+))}

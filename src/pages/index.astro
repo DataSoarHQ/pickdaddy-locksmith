@@ -1,0 +1,107 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Ticker from '../components/Ticker.astro';
+import Stats from '../components/Stats.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import Reviews from '../components/Reviews.astro';
+import Cta from '../components/Cta.astro';
+import Areas from '../components/Areas.astro';
+import ContactSection from '../components/ContactSection.astro';
+import logo from '../assets/brand/logo.png';
+import { photo } from '../lib/img';
+import { business as b, quickServices, reasons, reviews } from '../data/site';
+const featured = reviews[0];
+---
+<Base
+  title="Pick Daddy’s Mobile Locksmith | Locksmith Services in North Alabama"
+  description="Pick Daddy’s Mobile Locksmith, “The Loc Doc”: car door unlocking, car key cutting and programming, key fobs, home and business rekeys, and lock installs across North Alabama. Call or text (256) 905-5255."
+>
+  <section class="hero cut">
+    <div class="wrap hero__in">
+      <div>
+        <p class="hero__kicker">Call “{b.nickname}”</p>
+        <h1>Providing the Highest Quality Locksmith Services <span class="hl">In North Alabama</span></h1>
+        <p class="hero__lead">Pick Daddy’s Mobile Locksmith is your full service provider of premium locksmith services. Whether you need locksmith services for your home, business, or vehicle, call Pick Daddy’s today!</p>
+        <div class="actions">
+          <a class="btn btn--yellow btn--stack" href={b.phoneHref}><span class="btn__small">I need help now</span>{b.phoneDisplay}</a>
+          <a class="btn btn--ghost" href={b.smsHref}>Text us</a>
+          <a class="btn btn--ghost" href="#contact">Request service</a>
+        </div>
+        <ul class="checks">
+          <li>Home, business &amp; auto</li>
+          <li>{b.warrantyDays}-day service warranty</li>
+          <li>Emergencies 24/7</li>
+        </ul>
+      </div>
+      <div class="hero__art">
+        <Image class="hero__main" src={photo('hero-rekeyer')} alt="Pick Daddy’s key cutting machine set up in the service van" widths={[600, 900, 1200]} sizes="(max-width: 900px) 100vw, 45vw" loading="eager" fetchpriority="high" />
+        <Image class="hero__inset" src={photo('key-wall')} alt="Wall of car key blanks and key fobs" width={365} loading="eager" />
+        <Image class="hero__seal" src={logo} alt="" width={240} height={240} loading="eager" />
+      </div>
+    </div>
+  </section>
+  <Ticker />
+  <Stats />
+
+  <section class="section">
+    <div class="wrap split">
+      <div data-reveal>
+        <p class="eyebrow">Pick Daddy’s Mobile Locksmith</p>
+        <h2>We’re Here To Help When You Need Us</h2>
+        <p class="lede">We offer a full range of locksmith services to our customers, whether at home, at work, or on the road.</p>
+        <ul class="checks checks--2">{quickServices.map((s) => <li>{s}</li>)}</ul>
+        <figure class="quote">
+          <blockquote>“{featured.text}”</blockquote>
+          <p>{featured.name}, {featured.place}</p>
+        </figure>
+        <div class="actions"><a class="btn btn--navy" href="/about/">More About Us</a></div>
+      </div>
+      <div class="stack" data-reveal>
+        <Image src={photo('key-wall-wide')} alt="Car keys and key fobs hanging on the wall" widths={[500, 736]} sizes="(max-width: 900px) 90vw, 45vw" />
+        <Image src={photo('key-cutter')} alt="Key cutting machine at work" widths={[300, 600]} sizes="(max-width: 900px) 45vw, 22vw" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="services">
+    <div class="wrap">
+      <div class="head head--center">
+        <p class="eyebrow">Our Locksmith Services</p>
+        <h2>Need Help At Home, At Work, or In Your Car?</h2>
+        <p class="lede">From The Shoals to Huntsville, we’re just a call away. Check out our services and pricing.</p>
+      </div>
+      <ServiceCards />
+      <p class="center" style="margin-top:2rem"><a class="btn btn--navy" href="/locksmith-services/#pricing">See All Pricing</a></p>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Why Choose Us</p>
+        <h2>We’re The Perfect Fit For Your Lock-Out Problem</h2>
+        <p class="lede">Locked out of your home, your business, or your car? We’re only a call away!</p>
+      </div>
+      <ul class="tiles">
+        {reasons.map((r) => <li class="tile" data-reveal><h3>{r.title}</h3><p>{r.text}</p></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <Reviews />
+  <Cta title="Need Emergency Locksmith Services Now? Pick Daddy’s Is Available 24/7" />
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Service Areas</p>
+        <h2>Serving North Alabama and Surrounding Areas</h2>
+        <p class="lede">We come to you, from the Shoals to Decatur, Madison and Huntsville. Don’t see your town? Call or text and ask.</p>
+      </div>
+      <Areas />
+    </div>
+  </section>
+
+  <ContactSection />
+</Base>

@@ -1,0 +1,20 @@
+---
+import { Image } from 'astro:assets';
+import { photo } from '../lib/img';
+const { title, eyebrow, sub, banner = 'keys-wood', crumbs = [] } = Astro.props;
+---
+<section class="pagehead cut">
+  <Image class="pagehead__bg" src={photo(banner)} alt="" widths={[640, 1280, 1800]} sizes="100vw" loading="eager" />
+  <div class="wrap">
+    {crumbs.length > 0 && (
+      <ul class="crumbs">
+        <li><a href="/">Home</a></li>
+        {crumbs.map((c: { name: string; href: string }, i: number) => <li>{i === crumbs.length - 1 ? <span aria-current="page">{c.name}</span> : <a href={c.href}>{c.name}</a>}</li>)}
+      </ul>
+    )}
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    {sub && <p class="pagehead__sub">{sub}</p>}
+    <slot />
+  </div>
+</section>
