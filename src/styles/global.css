@@ -84,10 +84,10 @@ p { margin: 0; }
 .topbar a:hover { color: var(--yellow); }
 .header { position: sticky; top: 0; z-index: 30; background: var(--navy); color: var(--paper); border-bottom: 1px solid var(--line-d); }
 .header__in { display: flex; align-items: center; gap: 1.5rem; min-height: 4.8rem; }
-.brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; line-height: 1.05; }
-.brand img { width: 3.6rem; height: 3.6rem; }
-.brand__name { display: block; font-size: 1.25rem; font-weight: 900; letter-spacing: -.02em; color: var(--yellow); }
-.brand__sub { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--paper); }
+.brand { display: flex; align-items: center; gap: .85rem; text-decoration: none; line-height: 1.05; }
+.brand img { width: 5.25rem; height: 5.25rem; }
+.brand__name { display: block; font-size: 1.55rem; font-weight: 900; letter-spacing: -.02em; color: var(--yellow); }
+.brand__sub { display: block; font-size: .8rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--paper); }
 .nav { display: flex; align-items: center; gap: 1.3rem; margin-left: auto; }
 .nav a { display: block; font-weight: 600; font-size: .97rem; text-decoration: none; padding-block: .4rem; border-bottom: 3px solid transparent; white-space: nowrap; }
 .nav a:hover { border-color: var(--line-d); }
@@ -316,6 +316,7 @@ html.menu-open .callbar { display: none; }
 .footer { background: var(--night); color: var(--muted-d); padding-block: 3.5rem 1.5rem; font-size: .97rem; }
 .footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1.1fr 1.3fr; gap: 2.5rem; }
 .footer .brand { margin-bottom: 1rem; }
+.footer .brand img { width: 6.5rem; height: 6.5rem; }
 .footer__title { margin-bottom: .8rem; color: var(--paper); font-weight: 800; font-size: 1.05rem; }
 .footer li { padding-block: .18rem; }
 .footer a { color: var(--ice); text-decoration: none; }
@@ -368,8 +369,8 @@ html.menu-open .callbar { display: none; }
 }
 @media (max-width: 600px) {
   .topbar__right { display: none; }
-  .brand__name { font-size: 1.1rem; }
-  .brand img { width: 3rem; height: 3rem; }
+  .brand__name { font-size: 1.3rem; }
+  .brand img { width: 4rem; height: 4rem; }
   .cards, .tiles, .reviews, .area-grid, .checks--2 { grid-template-columns: minmax(0, 1fr); }
   .form, .form--3 { grid-template-columns: minmax(0, 1fr); }
   .actions .btn { flex: 1 1 100%; }
