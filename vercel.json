@@ -1,0 +1,21 @@
+{
+  "framework": "astro",
+  "redirects": [
+    { "source": "/services", "destination": "/locksmith-services/", "permanent": true },
+    { "source": "/services/", "destination": "/locksmith-services/", "permanent": true },
+    { "source": "/pricing", "destination": "/locksmith-services/#pricing", "permanent": true },
+    { "source": "/pricing/", "destination": "/locksmith-services/#pricing", "permanent": true },
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/home/", "destination": "/", "permanent": true },
+    { "source": "/sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true },
+    { "source": "/wp-sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true },
+    { "source": "/feed/", "destination": "/", "permanent": true },
+    { "source": "/comments/feed/", "destination": "/", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/_astro/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}
