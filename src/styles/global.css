@@ -88,6 +88,10 @@ p { margin: 0; }
 .brand img { width: 5.25rem; height: 5.25rem; }
 .brand__name { display: block; font-size: 1.55rem; font-weight: 900; letter-spacing: -.02em; color: var(--yellow); }
 .brand__sub { display: block; font-size: .8rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--paper); }
+/* In the header the round badge hangs below the bar, so it can be big without making the header tall. */
+.header .brand { position: relative; padding-left: 8.4rem; }
+.header .brand img { position: absolute; z-index: 2; left: 0; top: -.95rem; width: 7.5rem; height: 7.5rem; filter: drop-shadow(0 10px 18px rgb(0 0 0 / .4)); transition: transform .25s cubic-bezier(.3, 1.6, .5, 1); }
+.header .brand:hover img { transform: rotate(-6deg) scale(1.03); }
 .nav { display: flex; align-items: center; gap: 1.3rem; margin-left: auto; }
 .nav a { display: block; font-weight: 600; font-size: .97rem; text-decoration: none; padding-block: .4rem; border-bottom: 3px solid transparent; white-space: nowrap; }
 .nav a:hover { border-color: var(--line-d); }
@@ -119,7 +123,7 @@ html.menu-open .callbar { display: none; }
 .hero__art { position: relative; padding: 0 0 2.5rem 2.5rem; }
 .hero__main { width: 100%; aspect-ratio: 4 / 3.3; object-fit: cover; border-radius: 22px; }
 .hero__inset { position: absolute; left: 0; bottom: 0; width: 38%; aspect-ratio: 3 / 4; object-fit: cover; border: 6px solid var(--navy); border-radius: 16px; }
-.hero__seal { position: absolute; right: -1rem; top: -1.25rem; width: 8.5rem; height: 8.5rem; filter: drop-shadow(0 14px 28px rgb(0 0 0 / .45)); animation: seal-in .9s cubic-bezier(.2, 1.4, .4, 1) .3s both; }
+.hero__seal { position: absolute; right: -2rem; top: -3rem; width: 12rem; height: 12rem; filter: drop-shadow(0 14px 28px rgb(0 0 0 / .45)); animation: seal-in .9s cubic-bezier(.2, 1.4, .4, 1) .3s both; }
 @keyframes seal-in { from { opacity: 0; transform: rotate(-30deg) scale(.6); } }
 
 /* Scrolling ticker below the hero. */
@@ -363,14 +367,17 @@ html.menu-open .callbar { display: none; }
 }
 @media (max-width: 900px) {
   .hero__in, .split, .contact { grid-template-columns: minmax(0, 1fr); }
-  .hero__seal { width: 6.5rem; height: 6.5rem; right: -.25rem; }
+  .hero__seal { width: 8.5rem; height: 8.5rem; right: -.5rem; top: -2.5rem; }
+  .hero__art { margin-top: 1.5rem; }
   .stats ul { grid-template-columns: 1fr 1fr; }
   .area-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 600px) {
   .topbar__right { display: none; }
   .brand__name { font-size: 1.3rem; }
-  .brand img { width: 4rem; height: 4rem; }
+  .header .brand { padding-left: 6.1rem; }
+  .brand__sub { font-size: .68rem; letter-spacing: .1em; white-space: nowrap; }
+  .header .brand img { top: -.6rem; width: 5.5rem; height: 5.5rem; }
   .cards, .tiles, .reviews, .area-grid, .checks--2 { grid-template-columns: minmax(0, 1fr); }
   .form, .form--3 { grid-template-columns: minmax(0, 1fr); }
   .actions .btn { flex: 1 1 100%; }
