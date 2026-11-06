@@ -65,7 +65,7 @@ export const ticker = [
   { label: 'Key fobs & push to start', href: '/locksmith-services/#auto' },
   { label: 'Home & business rekeys', href: '/locksmith-services/#residential' },
   { label: 'Knob & deadbolt installs', href: '/locksmith-services/#residential' },
-  { label: '10% off for military & police', href: '/locksmith-services/#faq' },
+  { label: '$10 off for military & police', href: '/locksmith-services/#faq' },
   { label: `${business.warrantyDays}-day service warranty`, href: '/about/' },
 ];
 
@@ -73,7 +73,7 @@ export const ticker = [
 export const stats = [
   { value: '60', label: 'Day service warranty' },
   { value: '7', label: 'Days a week, emergencies 24/7' },
-  { value: '10%', label: 'Off for military & police' },
+  { value: '$10', label: 'Off for military & police' },
   { value: '$65', label: 'Car door unlocking' },
 ];
 
@@ -132,7 +132,7 @@ export const faqs = [
   { q: 'Do you make car and house keys even if I’ve lost all of them?', a: 'Yes! We can make car or house keys if you’ve lost your current keys.' },
   { q: 'Do you cut and program keys?', a: 'Yes, we can cut and program whatever keys you need!' },
   { q: 'Do you program key fobs and push to start keys?', a: 'Yes, we can program those too!' },
-  { q: 'Do you give discounts to military & police officers?', a: 'Yes, we’re glad to give a 10% discount to our military and police officers!' },
+  { q: 'Do you give discounts to military & police officers?', a: 'Yes, we’re glad to give a $10 discount to our military and police officers!' },
   { q: 'Can you get me in my house if I’m locked out?', a: 'Yes! Give us a call if you’re locked out of your home. We can help you get back in fast!' },
   { q: 'Do you remove high security puck locks?', a: 'Yes, we can remove high security puck locks.' },
 ];
