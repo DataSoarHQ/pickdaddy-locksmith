@@ -5,7 +5,7 @@ import { business as b, faqs, hours, pricing, services, towns, townHref } from '
 export const GET: APIRoute = () => {
   const body = `# ${b.name}
 
-> Mobile locksmith ("${b.nickname}") serving North Alabama, from the Shoals to Huntsville. Home, business and automotive locksmithing. ${b.warrantyDays}-day service warranty. 10% discount for military and police.
+> Mobile locksmith ("${b.nickname}") serving North Alabama, from the Shoals to Huntsville. Home, business and automotive locksmithing. ${b.warrantyDays}-day service warranty. $10 discount for military and police.
 
 ## Contact
 
